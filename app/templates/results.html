@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Результаты: {{ query }} — SearchHub{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+        <div class="card shadow mb-4" style="border-radius: 20px;">
+            <div class="card-body p-4">
+                <h5 class="text-muted mb-1">Запрос:</h5>
+                <h2 class="fw-bold mb-3">{{ query }}</h2>
+
+                <div class="alert alert-info">
+                    <strong>Краткий пересказ:</strong> {{ summary }}
+                </div>
+
+                {% if results %}
+                    <h5 class="mt-4 mb-3">Результаты поиска:</h5>
+                    {% for result in results %}
+                        <div class="mb-3">
+                            <a href="{{ result.url }}" class="fw-semibold fs-5" target="_blank" rel="noopener noreferrer">
+                                {{ result.title }}
+                            </a>
+                            {% if result.snippet %}
+                                <p class="text-muted small mb-0">{{ result.snippet }}</p>
+                            {% endif %}
+                            <small class="text-secondary">{{ result.url }}</small>
+                        </div>
+                        <hr class="my-2">
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted text-center py-3">По вашему запросу ничего не найдено.</p>
+                {% endif %}
+
+                <div class="d-flex gap-2 mt-4">
+                    <a href="{% url 'search' %}" class="btn btn-primary">Новый поиск</a>
+                    <a href="{% url 'history' %}" class="btn btn-outline-secondary">История поиска</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Авторизация — SearchHub{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow" style="border-radius: 20px;">
+            <div class="card-body p-5">
+                <h1 class="text-center fw-bold mb-4">Авторизация</h1>
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.GET.next }}">
+                    <div class="mb-3">
+                        <label class="form-label" for="username">Логин</label>
+                        <input type="text" id="username" name="username" class="form-control" autofocus>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="password">Пароль</label>
+                        <input type="password" id="password" name="password" class="form-control">
+                    </div>
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg">Войти</button>
+                    </div>
+                </form>
+                <p class="text-center mb-0">
+                    Нет аккаунта? <a href="{% url 'signup' %}">Зарегистрироваться</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

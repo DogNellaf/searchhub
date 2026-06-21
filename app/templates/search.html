@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Поиск — SearchHub{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow" style="border-radius: 20px;">
+            <div class="card-body p-5">
+                <h1 class="text-center fw-bold mb-4">Поиск</h1>
+                <form method="POST" action="{% url 'search' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input type="text" id="text" name="text" class="form-control form-control-lg"
+                               placeholder="Введите запрос..." autofocus>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">Найти</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
