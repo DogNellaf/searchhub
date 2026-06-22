@@ -1,6 +1,6 @@
 # SearchHub
 
-**[English version](README.md)**
+> [🇬🇧 English](README.md) | 🇷🇺 Русский
 
 Веб-приложение, которое агрегирует результаты поиска из Google Custom Search и DuckDuckGo, а затем генерирует AI-резюме найденных материалов с помощью GPT. Включает расширение для Chrome.
 
@@ -17,12 +17,14 @@
 
 ## Технологии
 
-- **Backend:** Python 3, Django 3.2
-- **База данных:** SQLite (заменяется через настройку `DATABASES`)
-- **AI:** OpenAI GPT-3.5-turbo через [ProxyAPI](https://proxyapi.ru)
-- **API поиска:** Google Custom Search API, DuckDuckGo Instant Answer API
-- **Frontend:** Bootstrap 5.3
-- **Расширение:** Chrome Manifest V3
+| Слой | Технология |
+|---|---|
+| Backend | Python 3, Django 3.2 |
+| База данных | SQLite (заменяется через настройку `DATABASES`) |
+| AI | OpenAI GPT-3.5-turbo через [ProxyAPI](https://proxyapi.ru) |
+| API поиска | Google Custom Search API, DuckDuckGo Instant Answer API |
+| Frontend | Bootstrap 5.3 |
+| Расширение | Chrome Manifest V3 |
 
 ## Требования
 
@@ -32,46 +34,33 @@
 
 ## Установка
 
-**1. Установите зависимости:**
-
 ```bash
+# Клонировать репозиторий
+git clone <repository-url>
+cd searchhub
+
+# Создать и активировать виртуальное окружение
+python -m venv .venv
+source .venv/bin/activate      # Linux / macOS
+.venv\Scripts\activate         # Windows
+
+# Установить зависимости
 pip install -r requirements.txt
-```
 
-**2. Создайте файл окружения:**
-
-```bash
+# Создать файл окружения и заполнить учётные данные (см. Переменные окружения)
 cp .env.example .env
-```
 
-Откройте `.env` и заполните учётные данные:
-
-```env
-SECRET_KEY=ваш-django-secret-key
-GOOGLE_API_KEY=ваш-google-api-key
-GOOGLE_CX=идентификатор-поисковой-системы
-PROXYAI_API_KEY=ваш-proxyai-или-openai-ключ
-```
-
-**3. Примените миграции базы данных:**
-
-```bash
+# Применить миграции базы данных
 python manage.py migrate
-```
 
-**4. (Опционально) Создайте суперпользователя для админки:**
-
-```bash
+# (Опционально) Создать суперпользователя для админки
 python manage.py createsuperuser
-```
 
-**5. Запустите сервер разработки:**
-
-```bash
+# Запустить сервер разработки
 python manage.py runserver
 ```
 
-Откройте [http://localhost:8000](http://localhost:8000) в браузере.
+Приложение будет доступно по адресу `http://127.0.0.1:8000/`.
 
 ## Расширение Chrome
 
@@ -90,24 +79,24 @@ python manage.py runserver
 2. Включите **Режим разработчика**
 3. Нажмите **Загрузить распакованное** и выберите папку `extension/`
 
+## Переменные окружения
+
+| Переменная | Описание | По умолчанию |
+|---|---|---|
+| `SECRET_KEY` | Секретный ключ Django | небезопасное значение |
+| `DEBUG` | Режим отладки (`True`/`False`) | `True` |
+| `ALLOWED_HOSTS` | Разрешённые хосты через запятую | `localhost,127.0.0.1` |
+| `GOOGLE_API_KEY` | Ключ Google Custom Search API | — |
+| `GOOGLE_CX` | ID поисковой системы Google | — |
+| `PROXYAI_API_KEY` | Ключ OpenAI / ProxyAPI | — |
+| `SESSION_COOKIE_SAMESITE` | Установите `None` для расширения | `Lax` |
+| `SESSION_COOKIE_SECURE` | Установите `True` при использовании HTTPS | `False` |
+
 ## Запуск тестов
 
 ```bash
 python manage.py test app
 ```
-
-## Переменные окружения
-
-| Переменная | По умолчанию | Описание |
-|---|---|---|
-| `SECRET_KEY` | (небезопасное) | Секретный ключ Django |
-| `DEBUG` | `True` | Режим отладки |
-| `ALLOWED_HOSTS` | `localhost,127.0.0.1` | Разрешённые хосты через запятую |
-| `GOOGLE_API_KEY` | — | Ключ Google Custom Search API |
-| `GOOGLE_CX` | — | ID поисковой системы Google |
-| `PROXYAI_API_KEY` | — | Ключ OpenAI / ProxyAPI |
-| `SESSION_COOKIE_SAMESITE` | `Lax` | Установите `None` для расширения |
-| `SESSION_COOKIE_SECURE` | `False` | Установите `True` при использовании HTTPS |
 
 ## Структура проекта
 

@@ -1,6 +1,6 @@
 # SearchHub
 
-**[Русская версия](README.ru.md)**
+> 🇬🇧 English | [🇷🇺 Русский](README.ru.md)
 
 A web application that aggregates search results from Google Custom Search and DuckDuckGo, then generates an AI-powered summary of the top results using GPT. Includes a Chrome extension for quick access.
 
@@ -17,61 +17,50 @@ A web application that aggregates search results from Google Custom Search and D
 
 ## Tech Stack
 
-- **Backend:** Python 3, Django 3.2
-- **Database:** SQLite (swappable via `DATABASES` setting)
-- **AI:** OpenAI GPT-3.5-turbo via [ProxyAPI](https://proxyapi.ru)
-- **Search APIs:** Google Custom Search API, DuckDuckGo Instant Answer API
-- **Frontend:** Bootstrap 5.3
-- **Browser Extension:** Chrome Manifest V3
+| Layer | Technology |
+|---|---|
+| Backend | Python 3, Django 3.2 |
+| Database | SQLite (swappable via `DATABASES` setting) |
+| AI | OpenAI GPT-3.5-turbo via [ProxyAPI](https://proxyapi.ru) |
+| Search APIs | Google Custom Search API, DuckDuckGo Instant Answer API |
+| Frontend | Bootstrap 5.3 |
+| Browser Extension | Chrome Manifest V3 |
 
-## Prerequisites
+## Requirements
 
 - Python 3.9+
 - Google Custom Search API key and engine ID — [create one here](https://programmablesearchengine.google.com/)
 - ProxyAPI key (or direct OpenAI key) for AI summaries
 
-## Setup
-
-**1. Clone the repository and install dependencies:**
+## Installation
 
 ```bash
+# Clone the repository
+git clone <repository-url>
+cd searchhub
+
+# Create and activate a virtual environment
+python -m venv .venv
+source .venv/bin/activate      # Linux / macOS
+.venv\Scripts\activate         # Windows
+
+# Install dependencies
 pip install -r requirements.txt
-```
 
-**2. Create your environment file:**
-
-```bash
+# Create your environment file and fill in credentials (see Environment Variables)
 cp .env.example .env
-```
 
-Edit `.env` and fill in your credentials:
-
-```env
-SECRET_KEY=your-django-secret-key
-GOOGLE_API_KEY=your-google-api-key
-GOOGLE_CX=your-google-custom-search-engine-id
-PROXYAI_API_KEY=your-proxyai-or-openai-key
-```
-
-**3. Apply database migrations:**
-
-```bash
+# Apply database migrations
 python manage.py migrate
-```
 
-**4. (Optional) Create an admin superuser:**
-
-```bash
+# (Optional) Create an admin superuser
 python manage.py createsuperuser
-```
 
-**5. Start the development server:**
-
-```bash
+# Run the development server
 python manage.py runserver
 ```
 
-Open [http://localhost:8000](http://localhost:8000) in your browser.
+The application will be available at `http://127.0.0.1:8000/`.
 
 ## Chrome Extension
 
@@ -90,24 +79,24 @@ To load the extension:
 2. Enable **Developer mode**
 3. Click **Load unpacked** and select the `extension/` directory
 
+## Environment Variables
+
+| Variable | Description | Default |
+|---|---|---|
+| `SECRET_KEY` | Django secret key | insecure dev key |
+| `DEBUG` | Enable debug mode (`True`/`False`) | `True` |
+| `ALLOWED_HOSTS` | Comma-separated list of allowed hosts | `localhost,127.0.0.1` |
+| `GOOGLE_API_KEY` | Google Custom Search API key | — |
+| `GOOGLE_CX` | Google Custom Search Engine ID | — |
+| `PROXYAI_API_KEY` | OpenAI / ProxyAPI key for summaries | — |
+| `SESSION_COOKIE_SAMESITE` | Set to `None` for extension support | `Lax` |
+| `SESSION_COOKIE_SECURE` | Set to `True` when using HTTPS | `False` |
+
 ## Running Tests
 
 ```bash
 python manage.py test app
 ```
-
-## Environment Variables
-
-| Variable | Default | Description |
-|---|---|---|
-| `SECRET_KEY` | (insecure default) | Django secret key |
-| `DEBUG` | `True` | Enable debug mode |
-| `ALLOWED_HOSTS` | `localhost,127.0.0.1` | Comma-separated allowed hosts |
-| `GOOGLE_API_KEY` | — | Google Custom Search API key |
-| `GOOGLE_CX` | — | Google Custom Search Engine ID |
-| `PROXYAI_API_KEY` | — | OpenAI / ProxyAPI key for summaries |
-| `SESSION_COOKIE_SAMESITE` | `Lax` | Set to `None` for extension support |
-| `SESSION_COOKIE_SECURE` | `False` | Set to `True` when using HTTPS |
 
 ## Project Structure
 
